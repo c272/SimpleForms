@@ -19,7 +19,13 @@ namespace SimpleForms
         public List<object> inputs = new List<object>();
         object[] arguments;
         List<string> inputFieldNames = new List<string>();
+        List<Control> fieldList = new List<Control>();
 
+        //Input fields constructor.
+        //Parameter formatting:
+        //Window title - args[0]
+        //Window top text - args[1]
+        //Fields - args[2..]
         public SF_InputFields(params object[] args)
         {
             //Error checking.
@@ -45,7 +51,7 @@ namespace SimpleForms
         {
             //Setting window height, width, name.
             this.Width = 400;
-            this.Height = 30 + (80 * inputFieldNames.Count);
+            this.Height = 110 + (50 * inputFieldNames.Count);
             this.Text = Title;
 
             //Adding title text to the form.
@@ -76,6 +82,9 @@ namespace SimpleForms
                 fieldTBox.Size = new Size(this.Width - 38, 20);
                 this.Controls.Add(fieldTBox);
 
+                //Adding input to list for fields.
+                fieldList.Add(this.Controls.Find("input" + (inputFieldNames.IndexOf(f) + 1), true)[0]);
+
                 //Incrementing heights.
                 labelHeight += 50;
                 fieldHeight += 50;
@@ -84,7 +93,7 @@ namespace SimpleForms
             //Creating final button.
             Button submitButton = new Button();
             submitButton.Location = new Point(10, fieldHeight-20);
-            submitButton.Size = new Size(this.Width - 38, 35);
+            submitButton.Size = new Size(this.Width - 38, 25);
             submitButton.Text = "Submit";
             submitButton.Click += handleInputFinished;
             this.Controls.Add(submitButton);
@@ -92,17 +101,17 @@ namespace SimpleForms
 
         private void handleInputFinished(object sender, EventArgs e)
         {
-            //Setting public properties.
-            for (int i=1; i<=inputFieldNames.Count; i++)
+            //Getting field values.
+            for (int i=0; i<fieldList.Count; i++)
             {
-                inputs.Add(this.GetType().GetField("input"+i).GetValue(this));
+                inputs.Add(fieldList[i].Text);
             }
 
             //Changing visibility.
             this.Visible = false;
         }
 
-        public static List<object> SF_GetInputFields(object s)
+        public static List<object> GetInputFields(object s)
         {
             //Returning fields.
             SF_InputFields send = (SF_InputFields)s;
