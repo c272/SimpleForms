@@ -15,11 +15,15 @@ namespace SimpleForms
         //Private properties for the form.
         public string Title;
         public string TitleText;
-        public int ButtonPressed = -1;
+        public string ButtonPressed = "";
         public int NumButtons = 0;
         object[] arguments;
 
         //Constructors with optional parameters for buttons.
+        //Format:
+        //args[0]: Window Title
+        //args[1]: Text above buttons
+        //args[2-..] Buttons with text.
         public SF_Menu(params object[] args)
         {
             //Getting amount of buttons.
@@ -67,6 +71,7 @@ namespace SimpleForms
                 currentBtn.Location = new Point(10, buttonHeight);
                 currentBtn.Width = this.Width-37;
                 currentBtn.Name = "btn" + (i + 1);
+                currentBtn.Click += switchVis;
                 buttonHeight += 30;
 
                 //Setting text.
@@ -78,6 +83,20 @@ namespace SimpleForms
 
             //Readjusting height to compensate for buttons.
             this.Height = buttonHeight + 50;
+        }
+
+        private void switchVis(object sender, EventArgs e)
+        {
+            //Setting clicked button number.
+            Button send = (Button)sender;
+            ButtonPressed = send.Name;
+            this.Visible = false;
+        }
+
+        public static string GetClickedButton(object sfmenu)
+        {
+            SF_Menu send = (SF_Menu)sfmenu;
+            return send.ButtonPressed;
         }
     }
 }
