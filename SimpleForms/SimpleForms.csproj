@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MetroGridPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetroGridPicker.Designer.cs">
+      <DependentUpon>MetroGridPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SF_GlobalMethods.cs" />
@@ -70,6 +77,9 @@
     <Compile Include="SF_Menu.Designer.cs">
       <DependentUpon>SF_Menu.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MetroGridPicker.resx">
+      <DependentUpon>MetroGridPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
