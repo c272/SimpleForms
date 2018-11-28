@@ -53,24 +53,28 @@ namespace SimpleForms
             //Setting size of the form.
             this.Width = 300;
             this.Height = 400;
-        
+
             //Placing title text onto the form.
-            Label titleText = new Label();
-            titleText.Location = new Point(10, 10);
-            titleText.AutoSize = true;
-            titleText.Text = TitleText;
+            Label titleText = new Label
+            {
+                Location = new Point(10, 10),
+                AutoSize = true,
+                Text = TitleText
+            };
             this.Controls.Add(titleText);
 
             //Placing buttons onto the form, and setting up events.
             int buttonHeight = 20 + titleText.Height;
             for (int i = 0; i<NumButtons; i++)
             {
-                Button currentBtn = new Button();
+                Button currentBtn = new Button
+                {
 
-                //Setting location.
-                currentBtn.Location = new Point(10, buttonHeight);
-                currentBtn.Width = this.Width-37;
-                currentBtn.Name = "btn" + (i + 1);
+                    //Setting location.
+                    Location = new Point(10, buttonHeight),
+                    Width = this.Width - 37,
+                    Name = "btn" + (i + 1)
+                };
                 currentBtn.Click += switchVis;
                 buttonHeight += 30;
 

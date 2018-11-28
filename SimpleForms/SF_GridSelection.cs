@@ -64,6 +64,9 @@ namespace SimpleForms
 
         private void SF_GridSelection_Load(object sender, EventArgs e)
         {
+            //Setting form name.
+            this.Text = Title;
+
             //Creating the PictureBox grid (32x32).
             int rowHeight = 10;
             int columnWidth = 10;
@@ -81,11 +84,13 @@ namespace SimpleForms
                     }
 
                     //Creating individual picture box.
-                    PictureBox currentPicBox = new PictureBox();
-                    currentPicBox.Location = new Point(columnWidth, rowHeight);
-                    currentPicBox.Size = new Size(cellSize, cellSize);
-                    currentPicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    currentPicBox.Name = "pic" + i + "|" + j;
+                    PictureBox currentPicBox = new PictureBox
+                    {
+                        Location = new Point(columnWidth, rowHeight),
+                        Size = new Size(cellSize, cellSize),
+                        SizeMode = PictureBoxSizeMode.StretchImage,
+                        Name = "pic" + i + "|" + j
+                    };
                     this.Controls.Add(currentPicBox);
 
                     //Iterating column width.
@@ -120,6 +125,35 @@ namespace SimpleForms
                 //Resetting width.
                 columnWidth = 10;
             }
+
+            //Setting window height and width.
+            this.Width = 10 + (cellSize * GridWidth) + (GridWidth*10) + 20;
+            this.Height = 10 + (cellSize * GridHeight) + (GridHeight*10) + 75;
+
+            //Adding text at the bottom of the screen (titleText).
+            Label title = new Label
+            {
+                Text = TitleText,
+                AutoSize = true,
+                Location = new Point(10, rowHeight)
+            };
+            this.Controls.Add(title);
+
+            //Adding submit button.
+            Button submit = new Button
+            {
+                Text = "Submit",
+                AutoSize = true,
+                Location = new Point(this.Width - 100, rowHeight)
+            };
+            submit.Click += handleSubmit;
+            this.Controls.Add(submit);
+        }
+
+        private void handleSubmit(object sender, EventArgs e)
+        {
+            //Set as invisible.
+            this.Visible = false;
         }
 
         private void handleGridBoxClick(object sender, EventArgs e)
@@ -168,8 +202,29 @@ namespace SimpleForms
             cellSize = s;
         }
 
+        //Returns a raw grid string, which this form accepts as a parameter (arg[4])
+        public string GetGridString()
+        {
+            //Creating a blank string, concatenating all grid values with ",".
+            string returnString = "";
+            for (int i=0; i<gridIndex.Count; i++)
+            {
+                for (int j=0; j<gridIndex[i].Count; j++)
+                {
+                    //Adding to string (with "," token).
+                    returnString += gridIndex[i][j] + ",";
+                }
+            }
+
+            //Removing last character to chop extra ",".
+            returnString = returnString.Substring(0, returnString.Length - 1);
+
+            //Returning.
+            return returnString;
+        }
+
         //Public method to get grid list (integer).
-        public static List<List<int>> getGrid(object o, int height, int width)
+        private static List<List<int>> getGrid(object o, int height, int width)
         {
             List<int> non2DGrid = ((string)o).Split(',').Select(Int32.Parse).ToList();
 

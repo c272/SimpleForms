@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(120, 26);
+            this.ClientSize = new System.Drawing.Size(120, 128);
             this.Name = "SF_GridSelection";
             this.Text = "SF_GridSelection";
             this.Load += new System.EventHandler(this.SF_GridSelection_Load);

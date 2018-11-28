@@ -55,10 +55,12 @@ namespace SimpleForms
             this.Text = Title;
 
             //Adding title text to the form.
-            Label titleText = new Label();
-            titleText.Location = new Point(10, 10);
-            titleText.AutoSize = true;
-            titleText.Text = TitleText;
+            Label titleText = new Label
+            {
+                Location = new Point(10, 10),
+                AutoSize = true,
+                Text = TitleText
+            };
             this.Controls.Add(titleText);
 
             //Placing labels and text boxes onto form.
@@ -67,19 +69,23 @@ namespace SimpleForms
             foreach (var f in inputFieldNames)
             {
                 //Creating label.
-                Label fieldText = new Label();
-                fieldText.Location = new Point(10, labelHeight);
-                fieldText.AutoSize = true;
-                fieldText.Text = f;
-                fieldText.Name = f + "label";
+                Label fieldText = new Label
+                {
+                    Location = new Point(10, labelHeight),
+                    AutoSize = true,
+                    Text = f,
+                    Name = f + "label"
+                };
                 Console.WriteLine(fieldText.Location);
                 this.Controls.Add(fieldText);
 
                 //Creating input fields.
-                TextBox fieldTBox = new TextBox();
-                fieldTBox.Location = new Point(10, fieldHeight);
-                fieldTBox.Name = "input"+(inputFieldNames.IndexOf(f)+1);
-                fieldTBox.Size = new Size(this.Width - 38, 20);
+                TextBox fieldTBox = new TextBox
+                {
+                    Location = new Point(10, fieldHeight),
+                    Name = "input" + (inputFieldNames.IndexOf(f) + 1),
+                    Size = new Size(this.Width - 38, 20)
+                };
                 this.Controls.Add(fieldTBox);
 
                 //Adding input to list for fields.
@@ -91,10 +97,12 @@ namespace SimpleForms
             }
 
             //Creating final button.
-            Button submitButton = new Button();
-            submitButton.Location = new Point(10, fieldHeight-20);
-            submitButton.Size = new Size(this.Width - 38, 25);
-            submitButton.Text = "Submit";
+            Button submitButton = new Button
+            {
+                Location = new Point(10, fieldHeight - 20),
+                Size = new Size(this.Width - 38, 25),
+                Text = "Submit"
+            };
             submitButton.Click += handleInputFinished;
             this.Controls.Add(submitButton);
         }
