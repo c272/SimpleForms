@@ -21,14 +21,17 @@ namespace SimpleForms
 
     public partial class SF_GridSelection : Form
     {
-        //Defining private properties.
+        //Defining private static properties (set by class methods).
+        private static Dictionary<int, SF_GridItem> gridDict = new Dictionary<int, SF_GridItem>();
+        private static int cellSize = 64;
+
+        //Defining other instance-based variables.
         private object[] arguments;
         public string Title;
         public string TitleText;
         public int GridHeight;
         public int GridWidth;
         public string onClickImage = "";
-        private static Dictionary<int, SF_GridItem> gridDict = new Dictionary<int, SF_GridItem>();
         public List<List<int>> gridIndex;
 
         //Parameters:
@@ -37,15 +40,11 @@ namespace SimpleForms
         //Grid Height (int) - args[2]
         //Grid Width (int) - args[3]
         //Grid integer array (string, separated by "," characters) - args[4]
+        //args[5+] - Ignored
         public SF_GridSelection(params object[] args)
         {
             //Checking argument length.
             if (args.Count() < 3) { throw new Exception("Missing parameters."); }
-
-            foreach (var i in args)
-            {
-                Console.WriteLine(i);
-            }
 
             //Getting title and title text.
             Title = (string)args[0];
@@ -66,7 +65,6 @@ namespace SimpleForms
         private void SF_GridSelection_Load(object sender, EventArgs e)
         {
             //Creating the PictureBox grid (32x32).
-            int cellSize = 128;
             int rowHeight = 10;
             int columnWidth = 10;
             for (int i = 0; i < GridHeight; i++)
@@ -74,8 +72,6 @@ namespace SimpleForms
                 for (int j = 0; j < GridWidth; j++)
                 {
                     //Getting cell value for the grid.
-                    Console.WriteLine("i: " + i);
-                    Console.WriteLine("j: "+j);
                     int cell = gridIndex[i][j];
                     //Attempting to get SF_GridItem from dictionary.
                     SF_GridItem currentGridItem;
@@ -110,8 +106,11 @@ namespace SimpleForms
                             onClickImage = currentGridItem.contents;
                             break;
                         case SF_GridStatus.Unclickable:
+                            //Loading image.
+                            currentPicBox.ImageLocation = currentGridItem.contents;
                             break;
                         default:
+                            throw new Exception("Invalid SF_GridStatus given in key.");
                             break;
                     }
                 }
@@ -125,30 +124,48 @@ namespace SimpleForms
 
         private void handleGridBoxClick(object sender, EventArgs e)
         {
-            //Setting picture box image to the OnClick image, if it's been set.
+            //Checking the grid item for this picturebox.
+            //Getting indexes.
             PictureBox send = (PictureBox)sender;
-            if (onClickImage != "")
+            int index1 = int.Parse(send.Name.Substring(3, 1));
+            int index2 = int.Parse(send.Name.Substring(5, 1));
+            int currentGS = gridIndex[index1][index2];
+
+            //Getting the Key and Value from the dictionary for "onClick" and "clickable".
+            KeyValuePair<int, SF_GridItem> onClick = gridDict.First(x => x.Value.status == SF_GridStatus.OnClick);
+            KeyValuePair<int, SF_GridItem> clickable = gridDict.First(x => x.Value.status == SF_GridStatus.Clickable);
+
+            //Checking current status.
+            if (currentGS==onClick.Key)
             {
-                send.ImageLocation = onClickImage;
+                //Already been clicked, reset to old number and change image.
+                gridIndex[index1][index2] = clickable.Key;
+                send.ImageLocation = clickable.Value.contents;
+                send.Refresh();
+            } else if (currentGS==clickable.Key)
+            {
+                //Switching to onClick number in grid and changing image.
+                gridIndex[index1][index2] = onClick.Key;
+                send.ImageLocation = onClick.Value.contents;
+                send.Refresh();
+            } else
+            {
+                throw new Exception("Click handler activated for unclickable or empty grid item.");
             }
 
-            //Setting the grid item's status.
-            for (int k = 0; k < gridIndex.Count; k++)
-            {
-                //Getting indexes.
-                int index1 = int.Parse(send.Name.Substring(3, 1));
-                int index2 = int.Parse(send.Name.Substring(5, 1));
-                Console.WriteLine(index1 + "|" + index2);
-
-                //Setting item based on OnClick key.
-                gridIndex[index1][index2] = gridDict.First(x => x.Value.status == SF_GridStatus.OnClick).Key;
-            }
         }
 
         //To set the dictionary for the datagrid.
         public static void SetKey(int index, SF_GridStatus status, string path = "")
         {
             gridDict.Add(index, new SF_GridItem(status, path));
+        }
+
+        //To set the size of grids across all instances.
+        public static void SetCellSize(int s)
+        {
+            if (cellSize<0) { throw new Exception("Cannot have cell size below zero."); }
+            cellSize = s;
         }
 
         //Public method to get grid list (integer).
