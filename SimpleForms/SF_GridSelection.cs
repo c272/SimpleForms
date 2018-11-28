@@ -223,6 +223,23 @@ namespace SimpleForms
             return returnString;
         }
 
+        //Instance-based public method to switch all of one type in a grid to another type.
+        public void SwitchAll(SF_GridStatus initialStatus, SF_GridStatus newStatus)
+        {
+            //Finding in dictionary the integer corresponding to GridStatuses.
+            int initStatusID = gridDict.First(x => x.Value.status == initialStatus).Key;
+            int newStatusID = gridDict.First(x => x.Value.status == newStatus).Key;
+
+            //Replacing all IDs in grid.
+            foreach (var k in gridIndex)
+            {
+                for (int l=0; l<k.Count; l++)
+                {
+                    if (k[l]==initStatusID) { k[l] = newStatusID; }
+                }
+            }
+        }
+
         //Public method to get grid list (integer).
         private static List<List<int>> getGrid(object o, int height, int width)
         {
