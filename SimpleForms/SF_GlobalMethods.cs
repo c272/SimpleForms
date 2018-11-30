@@ -79,5 +79,8 @@ namespace SimpleForms
                 }
             }
         }
+
+        //A public void delegate for error callbacks.
+        public delegate void SF_ErrorCallback();
     }
 }
