@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleForms
 {
-    class SFDB
+    public class SFDB
     {
         //Creating new public properties.
         public List<string> tables = new List<string>();
@@ -16,6 +16,7 @@ namespace SimpleForms
         //Constructor for database.
         public SFDB(string location)
         {
+            Console.WriteLine(location + "\\sfdb.txt");
             //Chceking if database already exists at this location.
             if (!File.Exists(location+"\\sfdb.txt"))
             {
@@ -42,6 +43,13 @@ namespace SimpleForms
         {
             //Adding to tables.
             tables.Add(tableName);
+            //Saving tables to table file.
+            StreamWriter sw = new StreamWriter(fileLoc + "\\sfdb.txt");
+            foreach (var i in tables)
+            {
+                sw.WriteLine(i);
+            }
+            sw.Close();
 
             //Creating file in sfdb directory.
             File.Create(fileLoc + "\\sfdb\\" + tableName+".txt");
@@ -62,6 +70,12 @@ namespace SimpleForms
         //Method to get table.
         public Dictionary<string,string> GetTable(string table)
         {
+            //Checking if table exists.
+            if (!tables.Contains(table))
+            {
+                throw new Exception("Table does not exist in database.");
+            }
+
             //Loading file.
             StreamReader sr = new StreamReader(fileLoc+"\\sfdb\\"+table+".txt");
             List<string> keyPair = new List<string>();
