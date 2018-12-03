@@ -58,6 +58,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SF_Error.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SF_Error.Designer.cs">
+      <DependentUpon>SF_Error.cs</DependentUpon>
+    </Compile>
     <Compile Include="SF_GlobalMethods.cs" />
     <Compile Include="SF_GridSelection.cs">
       <SubType>Form</SubType>
@@ -90,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SF_Error.resx">
+      <DependentUpon>SF_Error.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SF_GridSelection.resx">
       <DependentUpon>SF_GridSelection.cs</DependentUpon>
     </EmbeddedResource>
