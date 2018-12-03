@@ -21,7 +21,7 @@ namespace SimpleForms
         //Functions for returning a string from an object.
         public static string String(object o)
         {
-            return (string)o;
+            return o.ToString();
         }
 
         //Functions for returning a bool from an object/string (overloads).
