@@ -16,8 +16,7 @@ namespace SimpleForms
         //Constructor for database.
         public SFDB(string location)
         {
-            Console.WriteLine(location + "\\sfdb.txt");
-            //Chceking if database already exists at this location.
+            //Checking if database already exists at this location.
             if (!File.Exists(location+"\\sfdb.txt"))
             {
                 //No database exists here, create new blank files.
@@ -30,6 +29,7 @@ namespace SimpleForms
             } else {
                 //Database exists, load table file.
                 StreamReader sr = new StreamReader(location + "\\sfdb.txt");
+                fileLoc = location;
                 while (!sr.EndOfStream)
                 {
                     tables.Add(sr.ReadLine());
