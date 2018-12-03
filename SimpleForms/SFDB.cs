@@ -96,5 +96,19 @@ namespace SimpleForms
             //Returning.
             return returnDict;
         }
+
+        //Method to find keypair in table.
+        public bool FindInTable(string table, string key, string value)
+        {
+            Dictionary<string, string> d = GetTable(table);
+            foreach (var i in d)
+            {
+                if (i.Key==key && i.Value==value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
