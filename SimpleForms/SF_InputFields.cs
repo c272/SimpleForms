@@ -49,10 +49,6 @@ namespace SimpleForms
 
         private void SF_InputFields_Load(object sender, EventArgs e)
         {
-            //Setting window height, width, name.
-            this.Width = 400;
-            this.Height = 110 + (50 * inputFieldNames.Count);
-            this.Text = Title;
 
             //Adding title text to the form.
             Label titleText = new Label
@@ -62,6 +58,11 @@ namespace SimpleForms
                 Text = TitleText
             };
             this.Controls.Add(titleText);
+
+            //Setting window height, width, name.
+            this.Width = 400;
+            this.Height = 100 + (50 * inputFieldNames.Count) + titleText.Height;
+            this.Text = Title;
 
             //Placing labels and text boxes onto form.
             int labelHeight = 20 + titleText.Height;
