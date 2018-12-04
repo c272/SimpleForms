@@ -67,7 +67,7 @@ namespace SimpleForms
             //Setting form name.
             this.Text = Title;
 
-            //Creating the PictureBox grid (32x32).
+            //Creating the PictureBox grid.
             int rowHeight = 10;
             int columnWidth = 10;
             for (int i = 0; i < GridHeight; i++)
@@ -107,7 +107,9 @@ namespace SimpleForms
                             currentPicBox.Click += handleGridBoxClick;
                             break;
                         case SF_GridStatus.OnClick:
-                            //Setting onclick image.
+                            //Setting PBOx image.
+                            currentPicBox.ImageLocation = currentGridItem.contents;
+                            //Setting global onclick image.
                             onClickImage = currentGridItem.contents;
                             break;
                         case SF_GridStatus.Unclickable:
