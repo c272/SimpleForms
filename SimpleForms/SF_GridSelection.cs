@@ -192,6 +192,14 @@ namespace SimpleForms
         //To set the dictionary for the datagrid.
         public static void SetKey(int index, SF_GridStatus status, string path = "")
         {
+            //Checking if key has already been set.
+            if(gridDict.ContainsKey(index))
+            {
+                //Removing key.
+                gridDict.Remove(index);
+            }
+
+            //Adding new key.
             gridDict.Add(index, new SF_GridItem(status, path));
         }
 
