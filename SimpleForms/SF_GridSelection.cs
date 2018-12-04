@@ -107,8 +107,9 @@ namespace SimpleForms
                             currentPicBox.Click += handleGridBoxClick;
                             break;
                         case SF_GridStatus.OnClick:
-                            //Setting PBOx image.
+                            //Setting PBOX image and click handler.
                             currentPicBox.ImageLocation = currentGridItem.contents;
+                            currentPicBox.Click += handleGridBoxClick;
                             //Setting global onclick image.
                             onClickImage = currentGridItem.contents;
                             break;
