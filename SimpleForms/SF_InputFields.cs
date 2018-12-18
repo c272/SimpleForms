@@ -43,7 +43,6 @@ namespace SimpleForms
             {
                 inputFieldNames.Add((string)args[i]);
             }
-            Console.WriteLine(inputFieldNames.Count);
             InitializeComponent();
         }
 
@@ -77,7 +76,6 @@ namespace SimpleForms
                     Text = f,
                     Name = f + "label"
                 };
-                Console.WriteLine(fieldText.Location);
                 this.Controls.Add(fieldText);
 
                 //Creating input fields.
