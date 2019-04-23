@@ -169,6 +169,7 @@ namespace SimpleForms
             int currentGS = gridIndex[index1][index2];
 
             //Getting the Key and Value from the dictionary for "onClick" and "clickable".
+            //Errors here mean you haven't used "SetKey" properly.
             KeyValuePair<int, SF_GridItem> onClick = gridDict.First(x => x.Value.status == SF_GridStatus.OnClick);
             KeyValuePair<int, SF_GridItem> clickable = gridDict.First(x => x.Value.status == SF_GridStatus.Clickable);
 

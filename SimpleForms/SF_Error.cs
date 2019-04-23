@@ -14,7 +14,6 @@ namespace SimpleForms
     public partial class SF_Error : Form
     {
         //Defining private properties.
-        private object[] arguments;
         private string Title;
         private string ErrorText;
         public bool call = false;
