@@ -67,6 +67,9 @@ namespace SimpleForms
             //Setting form name.
             this.Text = Title;
 
+            //Setting icon as specified in config.
+            this.Icon = SF_Config.GetIcon;
+
             //Creating the PictureBox grid.
             int rowHeight = 10;
             int columnWidth = 10;

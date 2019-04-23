@@ -48,6 +48,8 @@ namespace SimpleForms
 
         private void SF_InputFields_Load(object sender, EventArgs e)
         {
+            //Setting icon as specified in config.
+            this.Icon = SF_Config.GetIcon;
 
             //Adding title text to the form.
             Label titleText = new Label

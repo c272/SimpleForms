@@ -28,6 +28,9 @@ namespace SimpleForms
             Title = title_;
             ErrorText = errorText_;
 
+            //Setting icon as specified in config.
+            this.Icon = SF_Config.GetIcon;
+
             //Checking for callback.
             if (call_!=null)
             {

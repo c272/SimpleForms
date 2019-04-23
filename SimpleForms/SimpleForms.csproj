@@ -59,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SFDB.cs" />
+    <Compile Include="SF_Config.cs" />
     <Compile Include="SF_Error.cs">
       <SubType>Form</SubType>
     </Compile>
