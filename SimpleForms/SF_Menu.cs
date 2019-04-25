@@ -50,6 +50,9 @@ namespace SimpleForms
             this.Text = Title;
             this.AutoSize = false;
 
+            //Setting icon as specified in config.
+            this.Icon = SF_Config.GetIcon;
+
             //Setting size of the form.
             this.Width = 300;
             this.Height = 400;

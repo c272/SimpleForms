@@ -50,6 +50,8 @@ namespace SimpleForms
                 }
             }
         }
+
+        //Attempts to convert any given value to a bool. Super old scrappy code.
         public static bool Bool(string s, bool acceptYesNo = false)
         {
             try

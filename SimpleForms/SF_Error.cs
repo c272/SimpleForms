@@ -14,7 +14,6 @@ namespace SimpleForms
     public partial class SF_Error : Form
     {
         //Defining private properties.
-        private object[] arguments;
         private string Title;
         private string ErrorText;
         public bool call = false;
@@ -28,6 +27,9 @@ namespace SimpleForms
             //args[2] - Callback (optional)
             Title = title_;
             ErrorText = errorText_;
+
+            //Setting icon as specified in config.
+            this.Icon = SF_Config.GetIcon;
 
             //Checking for callback.
             if (call_!=null)
