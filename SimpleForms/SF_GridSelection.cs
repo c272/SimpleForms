@@ -122,7 +122,6 @@ namespace SimpleForms
                             break;
                         default:
                             throw new Exception("Invalid SF_GridStatus given in key.");
-                            break;
                     }
                 }
 
